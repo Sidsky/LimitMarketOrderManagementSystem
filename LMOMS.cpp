@@ -17,7 +17,7 @@ void LM_OMS::process_order(double& price, int& order_id, int& number_of_shares, 
     }
 }
 
-void LM_OMS::order_matching(double& price, int& number_of_shares, string& type) { // O(N*S); N = Size of the map, S = Size of the vector.
+void LM_OMS::order_matching(double& price, int& number_of_shares, string& type, stringstream& out) { // O(N*S); N = Size of the map, S = Size of the vector.
     map<double, vector<tuple<int, int, bool> >, greater<> > *mp;
 
     if (type == "S") mp = &BID;
@@ -33,11 +33,11 @@ void LM_OMS::order_matching(double& price, int& number_of_shares, string& type) 
 
                 if (available_shares >= number_of_shares) { // O(1)
                     get<0>(it -> second[i]) -= number_of_shares;
-                    cout << number_of_shares << " share(s) sold at " << it->first << " HKD" << endl;
+                    out << number_of_shares << " share(s) sold at " << it->first << " HKD" << endl;
                     number_of_shares = 0;
 
                 } else { // O(1)
-                    cout << available_shares << " share(s) sold at " << it->first << " HKD" << endl;
+                    out << available_shares << " share(s) sold at " << it->first << " HKD" << endl;
                     number_of_shares -= available_shares;
                     get<0>(it -> second[i]) = 0;
                 }
@@ -55,11 +55,11 @@ void LM_OMS::order_matching(double& price, int& number_of_shares, string& type) 
 
                 if (available_shares >= number_of_shares) { // O(1)
                     get<0>(it -> second[i]) -= number_of_shares;
-                    cout << number_of_shares << " share(s) sold at " << it->first << " HKD" << endl;
+                    out << number_of_shares << " share(s) sold at " << it->first << " HKD" << endl;
                     number_of_shares = 0;
 
                 } else { // O(1)
-                    cout << available_shares << " share(s) sold at " << it->first << " HKD" << endl;
+                    out << available_shares << " share(s) sold at " << it->first << " HKD" << endl;
                     number_of_shares -= available_shares;
                     get<0>(it -> second[i]) = 0;
                 }
@@ -84,7 +84,7 @@ void LM_OMS::delete_order (double& price, int& order_id, string& type, stringstr
     int i;
 
     if (it == mp -> end()) {
-        out << "Cannot delete order. It has either been settled or was never placed." << endl;
+        out << "Cannot delete order. It has either been settled or was never placed" << endl;
     } else {
         for (i = 0; i < it -> second.size(); ++i) { // O(N); N = size of the vector;
             if (get<1>(it -> second[i]) == order_id) {
@@ -92,7 +92,7 @@ void LM_OMS::delete_order (double& price, int& order_id, string& type, stringstr
                     out << "Delete successful. All share(s) returned" << endl;
                 } else {
                     out << "Partial ordered has already been fulfilled. Remaining " << get<0>(it->second[i])
-                        << " share(s) returned." << endl;
+                        << " share(s) returned" << endl;
                 }
                 break;
             }
@@ -122,14 +122,12 @@ stringstream LM_OMS::execute_order(const string& order) {
     int order_id = stoi(order_details[1]);
 
     if (order_details[0] == "A") {
-        order_matching(price, number_of_shares, type);
+        order_matching(price, number_of_shares, type, out);
         if (number_of_shares > 0) {
             process_order(price, order_id, number_of_shares, type, out);
         }
     } else if (order_details[0] == "X") {
         delete_order(price, order_id, type, out);
-    } else {
-        cout << "Invalid Instruction." << endl;
     }
     return out;
 }

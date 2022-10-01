@@ -19,7 +19,7 @@ private:
 
     void process_order (double& price, int& order_id, int& number_of_shares, string& type, stringstream& out);
 
-    void order_matching (double& price, int& number_of_shares, string& type);
+    void order_matching (double& price, int& number_of_shares, string& type, stringstream& out);
 
     void delete_order (double& price, int& order_id, string& type, stringstream& out);
 
