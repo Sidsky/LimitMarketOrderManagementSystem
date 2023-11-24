@@ -3,13 +3,3 @@
 .vscode
 .idea
 cmake-build-*
-
-CMakeFiles*
-Makefile
-CMakeCache.txt
-
-lib
-_deps
-bin
-
-cmake_install.cmake
