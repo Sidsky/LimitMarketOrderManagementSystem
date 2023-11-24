@@ -1,1 +1,5 @@
-lib/
+#IDEs
+.vs
+.vscode
+.idea
+cmake-build-*
