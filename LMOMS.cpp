@@ -1,6 +1,8 @@
-#include "LM_OMS.h"
+#include "LMOMS.h"
 
-void LM_OMS::process_order(double& price, int& order_id, int& number_of_shares, string& type, stringstream& out) {  // O(logN)
+using namespace std;
+
+void LMOMS::process_order(double price, int order_id, int number_of_shares, string & type, stringstream & out) {  // O(logN)
     map<double, vector<tuple<int, int, bool> >, greater<> > *mp;
 
     if (type=="S") mp = &ASK;
@@ -17,7 +19,7 @@ void LM_OMS::process_order(double& price, int& order_id, int& number_of_shares, 
     }
 }
 
-void LM_OMS::order_matching(double& price, int& number_of_shares, string& type, stringstream& out) { // O(N*S); N = Size of the map, S = Size of the vector.
+void LMOMS::order_matching(double price, int number_of_shares, string & type, stringstream & out) { // O(N*S); N = Size of the map, S = Size of the vector.
     map<double, vector<tuple<int, int, bool> >, greater<> > *mp;
 
     if (type == "S") mp = &BID;
@@ -74,7 +76,7 @@ void LM_OMS::order_matching(double& price, int& number_of_shares, string& type, 
         return x.second.size() == 0;});
 }
 
-void LM_OMS::delete_order (double& price, int& order_id, string& type, stringstream& out) {
+void LMOMS::delete_order (double price, int order_id, string & type, stringstream & out) {
     map<double, vector<tuple<int, int, bool> >, greater<> > *mp;
 
     if (type == "S") mp = &ASK;
@@ -104,7 +106,7 @@ void LM_OMS::delete_order (double& price, int& order_id, string& type, stringstr
 }
 
 
-stringstream LM_OMS::execute_order(const string& order) {
+stringstream LMOMS::execute_order(const string & order) {
     stringstream out;
 
     stringstream ss(order);
@@ -132,7 +134,7 @@ stringstream LM_OMS::execute_order(const string& order) {
     return out;
 }
 
-void LM_OMS::print_order_book(){
+void LMOMS::print_order_book(){
     cout<<"=================\nASK"<<endl;
 
     for_each(ASK.begin(), ASK.end(),

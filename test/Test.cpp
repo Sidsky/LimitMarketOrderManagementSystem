@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "../LM_OMS.h"
+#include "../LMOMS.h"
 
 TEST(OrderPlacement, AskOrders) {
     LM_OMS OMS;

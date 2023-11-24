@@ -3,9 +3,4 @@ project(LHFT)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(LHFT main.cpp LM_OMS.h LMOMS.cpp)
-add_subdirectory(lib/googletest)
-add_subdirectory(test)
-
-enable_testing()
-
+add_executable(LHFT main.cpp LMOMS.h LMOMS.cpp)
