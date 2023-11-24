@@ -7,12 +7,13 @@ int main() {
     LMOMS OB;
 
     string line;
-    ifstream myfile ("/Users/siddharthmehrotra/CLionProjects/LMOMS/test/in.txt");
+    ifstream myfile ("/Users/siddharthmehrotra/CLionProjects/LimitMarketOrderManagementSystem/test/in.txt");
 
     if (myfile.is_open()) {
         while ( getline(myfile,line) ) {
             OB.execute_order(line);
 //            cout << OB.execute_order(line).str(); // verbose execution
+//            OB.print_order_book();
         }
         OB.print_order_book();
         myfile.close();

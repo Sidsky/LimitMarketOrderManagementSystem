@@ -16,7 +16,7 @@ private:
 
     void process_order (double price, int order_id, int number_of_shares, std::string & type, std::stringstream & out);
 
-    void order_matching (double price, int number_of_shares, std::string & type, std::stringstream & out);
+    void order_matching (double price, int & number_of_shares, std::string & type, std::stringstream & out);
 
     void delete_order (double price, int order_id, std::string & type, std::stringstream & out);
 

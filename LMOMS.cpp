@@ -19,7 +19,7 @@ void LMOMS::process_order(double price, int order_id, int number_of_shares, stri
     }
 }
 
-void LMOMS::order_matching(double price, int number_of_shares, string & type, stringstream & out) { // O(N*S); N = Size of the map, S = Size of the vector.
+void LMOMS::order_matching(double price, int & number_of_shares, string & type, stringstream & out) { // O(N*S); N = Size of the map, S = Size of the vector.
     map<double, vector<tuple<int, int, bool> >, greater<> > *mp;
 
     if (type == "S") mp = &BID;
