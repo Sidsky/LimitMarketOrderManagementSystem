@@ -7,7 +7,7 @@ int main() {
     LMOMS OB;
 
     string line;
-    ifstream myfile ("/Users/siddharthmehrotra/CLionProjects/LimitMarketOrderManagementSystem/test/in.txt");
+    ifstream myfile ("/Users/siddharthmehrotra/CLionProjects/LimitMarketOrderManagementSystem/in.txt");
 
     if (myfile.is_open()) {
         while ( getline(myfile,line) ) {
