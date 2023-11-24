@@ -11,4 +11,4 @@ FetchContent_MakeAvailable(googletest)
 # Now simply link against gtest or gtest_main as needed. Eg
 add_executable(LMOMSTest test.cpp ../LMOMS.h ../LMOMS.cpp)
 target_link_libraries(LMOMSTest gtest_main)
-add_test(NAME LMOMSTest_test COMMAND example)
+add_test(NAME LMOMSTest_test COMMAND LMOMSTest)
