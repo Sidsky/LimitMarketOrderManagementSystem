@@ -1,8 +1,10 @@
 #include "gtest/gtest.h"
 #include "../LMOMS.h"
 
+using namespace std;
+
 TEST(OrderPlacement, AskOrders) {
-    LM_OMS OMS;
+    LMOMS OMS;
     string order = "A,100001,S,10,1075";
     ASSERT_TRUE(OMS.execute_order(order).str() == "New order added for price HKD1075\n");
 
@@ -11,7 +13,7 @@ TEST(OrderPlacement, AskOrders) {
 }
 
 TEST(OrderPlacement, BuyOrders) {
-    LM_OMS OMS;
+    LMOMS OMS;
     string order = "A,100001,B,10,1075";
 
     ASSERT_TRUE(OMS.execute_order(order).str() == "New order added for price HKD1075\n");
@@ -20,7 +22,7 @@ TEST(OrderPlacement, BuyOrders) {
     EXPECT_TRUE(OMS.execute_order(order).str() == "New order added at the end of the queue of price HKD1075\n");
 }
 
-class LM_OMS_Test : public :: testing :: Test {
+class LMOMS_Test : public :: testing :: Test {
 protected:
     void SetUp() override { // Setting up order book as per the example in the question
         MS_.execute_order("A,100001,S,5,110");
@@ -33,10 +35,10 @@ protected:
         MS_.execute_order("A,100008,B,2,90");
         MS_.execute_order("A,100009,B,3,90");
     }
-    LM_OMS MS_;
+    LMOMS MS_;
 };
 
-TEST_F(LM_OMS_Test, AggresiceOrders) {
+TEST_F(LMOMS_Test, AggresiveOrders) {
     string actual = MS_.execute_order("A,100010,B,4,105").str();
     string expected = "3 share(s) sold at 105 HKD\n1 share(s) sold at 105 HKD\n";
 
@@ -52,13 +54,13 @@ TEST_F(LM_OMS_Test, AggresiceOrders) {
 }
 
 TEST (Deletion, EmptyDelete) {
-    LM_OMS OMS;
+    LMOMS OMS;
     string order = "X,100001,B,10,1075";
     ASSERT_TRUE(OMS.execute_order(order).str() == "Cannot delete order. It has either been settled or was never placed\n");
 }
 
 TEST (Deletion, PartialDelete) {
-    LM_OMS OMS;
+    LMOMS OMS;
     string order = "A,100001,S,10,1075";
     OMS.execute_order(order);
 
@@ -70,7 +72,7 @@ TEST (Deletion, PartialDelete) {
 }
 
 TEST (Deletion, SeccessfullDelete) {
-    LM_OMS OMS;
+    LMOMS OMS;
     string order = "A,100001,S,10,1075";
     OMS.execute_order(order);
 
